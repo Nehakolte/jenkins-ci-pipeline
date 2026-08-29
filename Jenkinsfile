@@ -10,6 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out source code from GitHub'
+                echo "Poll SCM test" >> test.txt
             }
         }
 
