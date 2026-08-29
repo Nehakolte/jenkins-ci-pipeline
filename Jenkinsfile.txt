@@ -1,0 +1,44 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code from GitHub'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the application'
+                bat 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running unit tests'
+                bat 'mvn test'
+            }
+        }
+
+        stage('Validation') {
+            steps {
+                echo 'Running validation checks'
+                bat 'mvn verify'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'CI Pipeline failed. Check Console Output.'
+        }
+    }
+}
