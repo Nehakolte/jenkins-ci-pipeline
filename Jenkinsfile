@@ -6,13 +6,14 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out source code from GitHub'
+                checkout scm
+                echo 'Source code checked out successfully'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the application'
+                echo 'Building application'
                 bat 'mvn clean package -DskipTests'
             }
         }
@@ -26,7 +27,7 @@ pipeline {
 
         stage('Validation') {
             steps {
-                echo 'Running validation checks'
+                echo 'Running validation'
                 bat 'mvn verify'
             }
         }
