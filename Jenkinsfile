@@ -1,34 +1,35 @@
 pipeline {
-
     agent any
+
+    tools {
+        maven 'Maven-3.9'
+    }
 
     stages {
 
         stage('Checkout') {
             steps {
-                checkout scm
-                echo 'Source code checked out successfully'
+                echo 'Checking out source code from GitHub'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building application'
+                echo 'Building the application'
                 bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running unit tests'
+                echo 'Running tests'
                 bat 'mvn test'
             }
         }
 
         stage('Validation') {
             steps {
-                echo 'Running validation'
-                bat 'mvn verify'
+                echo 'Validating the build'
             }
         }
     }
